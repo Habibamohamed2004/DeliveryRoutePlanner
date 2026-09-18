@@ -216,6 +216,7 @@ static void DisplayAnalytics(
     List<Trip> trips,
     List<InvalidDelivery> invalidDeliveries)
 {
+    Console.Clear();
     Console.WriteLine("==========================================");
     Console.WriteLine("          DELIVERY ANALYTICS");
     Console.WriteLine("==========================================");
@@ -404,6 +405,7 @@ static void DisplayAnalytics(
 
 static void ExportTripsToCsv(List<Trip> trips)
 {
+    Console.Clear();
     Console.WriteLine("==========================================");
     Console.WriteLine("          EXPORT PLANNED TRIPS");
     Console.WriteLine("==========================================");
@@ -464,6 +466,7 @@ static void ExportTripsToCsv(List<Trip> trips)
 
 static void DisplayTrips(List<Trip> trips)
 {
+    Console.Clear();
     Console.WriteLine("TRIPS");
     Console.WriteLine();
 
@@ -518,6 +521,7 @@ static void DisplayTrips(List<Trip> trips)
 static void DisplayInvalidDeliveries(
     List<InvalidDelivery> invalidDeliveries)
 {
+    Console.Clear();
     if (invalidDeliveries.Count == 0)
     {
         Console.WriteLine("No invalid deliveries found.");
@@ -569,7 +573,7 @@ static void DisplaySummary(
     decimal overallUtilization = trips.Count > 0
         ? totalWeight / (trips.Count * 10m) * 100m
         : 0;
-
+    Console.Clear();
     Console.WriteLine("==========================================");
     Console.WriteLine("                 SUMMARY");
     Console.WriteLine("==========================================");

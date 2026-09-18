@@ -25,13 +25,15 @@ Id,Area,Priority,Weight
 Example:
 
 Id,Area,Priority,Weight
+
 1,Nasr City,2,4.5
 2,Maadi,1,2.0
 3,Nasr City,3,1.2
 4,Zamalek,1,7.0
 5,Maadi,2,3.5
 
-Columns
+Columns:
+
 Id - Unique delivery ID.
 Area - Delivery destination area.
 Priority - Lower numbers represent higher priority.
@@ -57,10 +59,12 @@ Solution Approach:
 I divided the solution into three main parts:
 
 1. Reading the input
+
 DeliveryReader reads the CSV file and converts each row into a Delivery object.
 The input is validated while it is being read. Invalid file formats or invalid values generate clear error messages.
 
 2. Validating deliveries
+
 Before creating trips, the program checks each delivery.
 
 A delivery is considered invalid when:
@@ -72,7 +76,9 @@ Invalid deliveries are not added to any trip. Instead, they are stored in Invali
 This makes it clear which deliveries were not planned and why.
 
 3. Creating trips
+
 Valid deliveries are first sorted by:
+
 Priority
 Area
 Delivery ID
@@ -91,6 +97,7 @@ Handle higher-priority deliveries first.
 Group deliveries from the same area where reasonably possible.
 
 Handling Edge Cases:
+
 No deliveries
 If the input file contains no deliveries, the program displays: No deliveries found.
 and stops without creating any trips.
@@ -111,7 +118,9 @@ Current Trip Weight + Delivery Weight <= 10 kg
 Therefore, no trip can exceed the 10 kg vehicle capacity.
 
 Extensions:
+
 1. Delivery Statistics & Analytics
+
 I added a statistics section to provide more information about the planned deliveries.
 
 It displays:
@@ -163,6 +172,7 @@ The algorithm prioritizes:
 This is a reasonable trade-off for this assignment because the goal is to create a simple, understandable solution rather than implement an optimization algorithm.
 
 Reasoning Questions
+
 1. Explain your solution approach in your own words.
 
 I first read the deliveries from a CSV file and validate them.
@@ -180,6 +190,7 @@ For example, a delivery may have a high priority but there may not be enough spa
 I decided to process deliveries by priority first, then prefer same-area trips, while always making sure the 10 kg capacity is respected.
 
 3. Are there situations where your algorithm may not produce the best possible grouping?
+
 Yes.
 The algorithm is greedy, so it makes the best decision based on the trips currently available.
 A decision that looks good for one delivery may make it harder to create a better combination for later deliveries.
@@ -189,21 +200,14 @@ Finding the mathematically optimal grouping would require a more advanced optimi
 For this assignment, I preferred a simpler algorithm that is predictable, readable, and easy to maintain.
 
 4. If the input contained 1,000,000 delivery requests, what part of your solution might become slow or memory-intensive?
-The biggest memory concern is loading the entire CSV file using:
 
-File.ReadAllLines()
-
-This loads all input lines into memory at once.
-
-The program also stores all deliveries in lists and performs sorting, which requires additional memory.
-
-The trip-planning process can also become slower as the number of trips increases because the algorithm searches existing trips when placing each delivery.
-
-For a very large input, I would consider processing the file line by line instead of loading the entire file into memory.
-
-I would also look at improving the trip lookup structure to avoid repeatedly scanning all existing trips.
+The file-reading part is now more memory-efficient because I use File.ReadLines(), which processes the file one line at a time instead of loading the entire file into memory.
+However, the program still stores all valid deliveries in a List<Delivery>, so 1,000,000 delivery objects would require a significant amount of memory.
+The route-planning algorithm could also become slower with a very large number of deliveries. For each delivery, it may search through the existing trips to find a suitable trip, especially when there are many trips.
+Sorting all deliveries by priority, area, and ID would also require additional processing time.
 
 5. What would you improve if you had another day to work on the solution?
+
 I would improve the input processing first by reading the CSV file as a stream instead of loading the entire file into memory.
 I would also improve the trip-selection algorithm so that searching for suitable trips becomes more efficient for large datasets.
 Other possible improvements would include:
